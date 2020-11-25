@@ -7,6 +7,12 @@ class Derivative:
     """
     Base class for all derivatives
     """
+    def __init__(self, type):
+        pass
+
+    def payoff(self):
+        pass
+
     pass
 
 
