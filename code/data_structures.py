@@ -76,6 +76,6 @@ class Strategy:
         self.legs.add(self.Leg(instrument, amount))
 
     class Leg:
-        def __init__(self, pos: Instrument, amount: int):
-            self.position = pos
+        def __init__(self, instrument: Instrument, amount: int):
+            self.instrument = instrument
             self.amount = amount
