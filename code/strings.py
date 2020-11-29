@@ -17,9 +17,20 @@ HELP_MESSAGE = "Commands and syntax. Type \"help <command>\" for specific usage 
 HELP_USAGE = "Command usage:\n"
 USAGE = {"set"  : "    set {r|n} <value>\n"
                   "r: riskfree rate | n: number of Monte Carlo iterations\n",
-         "stock": "    stock <ticker> <price> <volatility>",
-         "deriv": "    deriv <type> ",
-         "strat": "    strat"}
+         "stock": "    stock <id> <price> <volatility>",
+         "deriv": "    deriv <id> <type> <parameters>...\n\n"
+                  "<type> specifies which derivative to create, use command \"instruments\"\n"
+                  "for full list and necessary parameters\n\n"
+                  "Example: deriv my_call call aapl 110 30",
+         "strat": "    strat <id> [subcommand]...\n\n"
+                  "Subcommands:\n"
+                  "    none             : simply creates a new strategy\n"
+                  "    add <id> [short] : adds the given instrument to the strategy (long)\n"
+                  "                       if [short] is set, adds a short position instead\n"
+                  "    rem <id> [short] : removes the given instrument from the strategy if\n"
+                  "                       the strategy contains it\n\n"
+                  "Example: strat my_strat add my_call short"
+         }
 
 
 def LIST(stocks, derivatives, strategies) -> str:

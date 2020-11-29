@@ -19,8 +19,7 @@ class Stock(Instrument):
     price: Last price of the stock
     vol: last volatility of the stock
     """
-    def __init__(self, ticker: str, price: float, vol: float):
-        self.ticker = ticker
+    def __init__(self, price: float, vol: float):
         self.price = price
         self.vol = vol
 
@@ -67,15 +66,15 @@ class Strategy:
     """
     A strategy consists of any number of instruments traded as a single block.
     """
-    def __init__(self, *instruments: tuple):
-        self.legs = set()
-        for instrument in instruments:
-            self.add_leg(instrument[0], instrument[1])
+    def __init__(self):
+        self.legs = list()
 
-    def add_leg(self, instrument, amount):
-        self.legs.add(self.Leg(instrument, amount))
+    def add_leg(self, instrument, is_short=False):
+        self.legs.append((instrument, is_short))
+        return True
 
-    class Leg:
-        def __init__(self, instrument: Instrument, amount: int):
-            self.instrument = instrument
-            self.amount = amount
+    def rem_leg(self, instrument, is_short=False):
+        if (instrument, is_short) in self.legs:
+            self.legs.remove((instrument, is_short))
+            return True
+        return False
