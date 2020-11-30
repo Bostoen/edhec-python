@@ -17,7 +17,7 @@ if __name__ == "__main__":
     stocks = dict()
     derivatives = dict()
     strategies = dict()
-    variables = {"r": 0.05, "n": 1000}
+    variables = {"r": 0.03, "n": 1000}
     print(STR.WELCOME)
 
     # Main control loop
