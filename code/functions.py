@@ -36,9 +36,10 @@ def monte_carlo_instrument(instrument_vol, S0: float, month_to_maturity) -> floa
 def monte_carlo_strategy(strategy: Strategy) -> float:
     """
     Approximate the price of a strategy via Monte Carlo
-    """
+    """    
+    total = np.array([monte_carlo_instrument(xxxxxx,xxx,xxxx,xxx)*leg.amount for leg in strategy]).sum()
     
-    
+    # attention au short qui fera un résultat négatif sur le payoff ! 
 
     # idée en pseudocode:
     #
@@ -50,7 +51,7 @@ def monte_carlo_strategy(strategy: Strategy) -> float:
     #    call_1.payoff() * -1
     #    + put_1.payoff() * 2
     #    + call_2.payoff() * -1
-    pass
+    return total
 
 
 
