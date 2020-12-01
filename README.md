@@ -4,7 +4,7 @@ EDHEC Business school - 2020 - Python for finance
 
 ## Usage
 
-In this part, we will have a look first on the object, then on the functions. Please have a look on the example notebook to see those class in a simple use case.
+In this part, we will have a close look on the objects and functions created. Please have a look on the tutorial notebook to see those classes in a simple use case.
 
 ### Financial objects
 
