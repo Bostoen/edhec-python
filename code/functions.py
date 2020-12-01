@@ -1,16 +1,15 @@
-from data_structures import *
+from code.data_structures import *
 import numpy as np
 import yfinance as yf
-import pandas as pd
-import datetime 
+import datetime
 
 """
 This file contains the functions that do the necessary work.
 """
 BASE_ITERATIONS = 10**4
 
-def get_price_and_vol(ticker: str, start = '2005-1-1', end = datetime.date.today().strftime("%Y-%m-%d")):
-    
+
+def get_price_and_vol(ticker: str, start='2005-1-1', end=datetime.date.today().strftime("%Y-%m-%d")):
     tickerData = yf.Ticker(ticker)
     tickerDf = tickerData.history(period='1d', start=start, end=end)
     last_price = tickerDf['Close'][-1] 
@@ -66,5 +65,3 @@ def monte_carlo_strategy(strategy: Strategy, riskfree: float, n=BASE_ITERATIONS)
     # This is split up in case different derivatives have different DTEs
     PV = FV * [np.exp(-riskfree*leg[0].dte/252) for leg in strategy.legs]
     return sum(PV)
-
-##############################################################################

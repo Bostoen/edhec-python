@@ -6,16 +6,21 @@ This file contains the data structures used in the program.
 
 
 class Stock:
-    def __init__(self, price: float, vol: float):
+    def __init__(self, price: float, vol: float, name="Stock"):
         self.price = price
         self.vol = vol
+        self.name = name
+
+    def __str__(self):
+        return "Stock (price = "+str(self.price)+", vol = "+str(self.vol)+")"
 
 
 class Derivative:
-    def __init__(self, underlying: Stock, strike: float, dte: int):
+    def __init__(self, underlying: Stock, strike: float, dte: int, name: str):
         self.underlying = underlying
         self.strike = strike
         self.dte = dte
+        self.name = name
 
     @abstractmethod
     def payoff(self, path) -> float:
@@ -26,8 +31,11 @@ class Derivative:
 
 
 class Call(Derivative):
-    def __init__(self, underlying: Stock, strike: float, dte: int):
-        super().__init__(underlying, strike, dte)
+    def __init__(self, underlying: Stock, strike: float, dte: int, name="Call"):
+        super().__init__(underlying, strike, dte, name)
+
+    def __str__(self):
+        return "Call (underlying = "+self.underlying.name+", strike = "+str(self.strike)+", dte = "+str(self.dte)+")"
 
     def payoff(self, path):
         closing_price = path[self.dte - 1]
@@ -35,8 +43,11 @@ class Call(Derivative):
 
 
 class Put(Derivative):
-    def __init__(self, underlying: Stock, strike: float, dte: int):
-        super().__init__(underlying, strike, dte)
+    def __init__(self, underlying: Stock, strike: float, dte: int, name="Put"):
+        super().__init__(underlying, strike, dte, name)
+
+    def __str__(self):
+        return "Put (underlying = "+self.underlying.name+", strike = "+str(self.strike)+", dte = "+str(self.dte)+")"
 
     def payoff(self, path):
         closing_price = path[self.dte - 1]
@@ -45,9 +56,13 @@ class Put(Derivative):
 
 class BinaryCall(Derivative):
     # Cash-or-nothing
-    def __init__(self, underlying: Stock, strike: float, dte: int, notional=1):
-        super().__init__(underlying, strike, dte)
+    def __init__(self, underlying: Stock, strike: float, dte: int, notional=1., name="BinaryCall"):
+        super().__init__(underlying, strike, dte, name)
         self.notional = notional
+
+    def __str__(self):
+        return "Binary Call (underlying = " + self.underlying.name + ", strike = " + str(self.strike) + \
+               ", dte = " + str(self.dte) + ", notional = " + str(self.notional) + ")"
 
     def payoff(self, path):
         closing_price = path[self.dte - 1]
@@ -56,9 +71,13 @@ class BinaryCall(Derivative):
 
 class BinaryPut(Derivative):
     # Cash-or-nothing
-    def __init__(self, underlying: Stock, strike: float, dte: int, notional=1):
-        super().__init__(underlying, strike, dte)
+    def __init__(self, underlying: Stock, strike: float, dte: int, notional=1., name="BinaryPut"):
+        super().__init__(underlying, strike, dte, name)
         self.notional = notional
+
+    def __str__(self):
+        return "Binary Put (underlying = " + self.underlying.name + ", strike = " + str(self.strike) + \
+               ", dte = " + str(self.dte) + ", notional = " + str(self.notional) + ")"
 
     def payoff(self, path):
         closing_price = path[self.dte - 1]
@@ -67,18 +86,26 @@ class BinaryPut(Derivative):
 
 class AsianCall(Derivative):
     # Fixed strike, daily arithmetic average
-    def __init__(self, underlying: Stock, strike: float, dte: int):
-        super().__init__(underlying, strike, dte)
+    def __init__(self, underlying: Stock, strike: float, dte: int, name="AsianCall"):
+        super().__init__(underlying, strike, dte, name)
+
+    def __str__(self):
+        return "Asian Call (underlying = " + self.underlying.name + ", strike = " + str(self.strike) + \
+               ", dte = " + str(self.dte) + ")"
 
     def payoff(self, path):
-        average_price = np.average(path[:self.dte - 1])
+        average_price = np.mean(path[:self.dte - 1])
         return max(.0, (average_price-self.strike)*100)
 
 
 class AsianPut(Derivative):
     # Fixed strike, daily arithmetic average
-    def __init__(self, underlying: Stock, strike: float, dte: int):
-        super().__init__(underlying, strike, dte)
+    def __init__(self, underlying: Stock, strike: float, dte: int, name="AsianPut"):
+        super().__init__(underlying, strike, dte, name)
+
+    def __str__(self):
+        return "Asian Put (underlying = " + self.underlying.name + ", strike = " + str(self.strike) + \
+               ", dte = " + str(self.dte) + ")"
 
     def payoff(self, path):
         average_price = np.mean(path[:self.dte - 1])
@@ -87,11 +114,14 @@ class AsianPut(Derivative):
 
 class BarrierUpOut(Derivative):
     # spot price starts below the barrier level and has to move up for the option to be knocked out
-    def __init__(self, option: Derivative, barrier: float):
+    def __init__(self, option: Derivative, barrier: float, name="BarrierUpOut"):
         assert option.underlying.price < barrier
-        super().__init__(option.underlying, option.strike, option.dte)
+        super().__init__(option.underlying, option.strike, option.dte, name)
         self.option = option
         self.barrier = barrier
+
+    def __str__(self):
+        return "Up-And-Out (option = " + self.option.name + ", barrier = " + str(self.barrier) + ")"
 
     def payoff(self, path):
         for i in path:
@@ -102,11 +132,14 @@ class BarrierUpOut(Derivative):
 
 class BarrierDownOut(Derivative):
     # spot price starts above the barrier level and has to move down for the option to be knocked out
-    def __init__(self, option: Derivative, barrier: float):
+    def __init__(self, option: Derivative, barrier: float, name="BarrierDownOut"):
         assert option.underlying.price > barrier
-        super().__init__(option.underlying, option.strike, option.dte)
+        super().__init__(option.underlying, option.strike, option.dte, name)
         self.option = option
         self.barrier = barrier
+
+    def __str__(self):
+        return "Down-And-Out (option = " + self.option.name + ", barrier = " + str(self.barrier) + ")"
 
     def payoff(self, path):
         for i in path:
@@ -117,11 +150,14 @@ class BarrierDownOut(Derivative):
 
 class BarrierUpIn(Derivative):
     # spot price starts below the barrier level and has to move up for the option to become activated
-    def __init__(self, option: Derivative, barrier: float):
+    def __init__(self, option: Derivative, barrier: float, name="BarrierUpIn"):
         assert option.underlying.price < barrier
-        super().__init__(option.underlying, option.strike, option.dte)
+        super().__init__(option.underlying, option.strike, option.dte, name)
         self.option = option
         self.barrier = barrier
+
+    def __str__(self):
+        return "Up-And-In (option = " + self.option.name + ", barrier = " + str(self.barrier) + ")"
 
     def payoff(self, path):
         for i in path:
@@ -132,11 +168,14 @@ class BarrierUpIn(Derivative):
 
 class BarrierDownIn(Derivative):
     # spot price starts above the barrier level and has to move down for the option to become activated
-    def __init__(self, option: Derivative, barrier: float):
+    def __init__(self, option: Derivative, barrier: float, name="BarrierDownIn"):
         assert option.underlying.price > barrier
-        super().__init__(option.underlying, option.strike, option.dte)
+        super().__init__(option.underlying, option.strike, option.dte, name)
         self.option = option
         self.barrier = barrier
+
+    def __str__(self):
+        return "Down-And-In (option = " + self.option.name + ", barrier = " + str(self.barrier) + ")"
 
     def payoff(self, path):
         for i in path:
@@ -158,6 +197,19 @@ class Strategy:
         self.underlying = underlying
         self.legs = list()
         self.dte = 0
+
+    def __str__(self):
+        return "Strategy (underlying = " + self.underlying.name + ")"
+
+    def verbose(self):
+        if len(self.legs) == 0:
+            return str(self)
+        string = str(self) + " consisting of"
+        for leg in self.legs:
+            string += "\n    "
+            string += "short " if leg[1] else "long "
+            string += str(leg[0])
+        return string
 
     def add_leg(self, derivative, is_short=False):
         if derivative.underlying == self.underlying:
