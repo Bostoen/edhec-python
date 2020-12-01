@@ -1,4 +1,4 @@
-from code.functions import *
+from functions import *
 from scipy import stats
 import matplotlib.pyplot as plt
 """

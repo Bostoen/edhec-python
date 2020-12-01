@@ -1,5 +1,5 @@
-import code.strings as STR
-from code.functions import *
+import strings as STR
+from functions import *
 """
 This file contains the main loop of the program. It will take inputs from the user and dispatch the right functions.
 """

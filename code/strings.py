@@ -4,7 +4,7 @@ This file simply contains the strings for the main program.
 
 # Communication
 VERSION_NUMBER = "v1.2"
-WELCOME = "Copyright 2020 Hector Bostoen. Intended for academic purposes.\n\n" \
+WELCOME = "\nCopyright 2020 Hector Bostoen. Intended for academic purposes.\n\n" \
           "Welcome to Python Derivative Pricer " + VERSION_NUMBER + ". Type \"help\" for a list of commands."
 
 # Commands
