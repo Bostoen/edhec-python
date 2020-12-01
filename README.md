@@ -11,10 +11,12 @@ In this part, we will have a look first on the object, then on the functions.
 The object are stored in data_structures.py
 
 ```python
-Class Stock
+Class Stock(price : float, vol : float)
+
+Class Derivatives(underlying: Stock, strike: float, dte: int)
+@abstractmethod
+
+Class 
 ```
-**Inputs**
-- `price : float`
-- `vol : float`
 
 
