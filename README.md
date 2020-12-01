@@ -10,7 +10,7 @@ In this part, we will have a look first on the object, then on the functions.
 
 The object are stored in data_structures.py
 
-- ```pythonClass Stock(price : float, vol : float)```
+- ```python Class Stock(price : float, vol : float)```
 - `Class Derivatives(underlying: Stock, strike: float, dte: int) @abstractmethod`
 - `Class Call(underlying: Stock, strike: float, dte: int)`  
 - `Class Put(underlying: Stock, strike: float, dte: int)`
