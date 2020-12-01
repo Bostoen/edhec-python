@@ -1,4 +1,4 @@
-# An option strategy pricer
+# An option pricer
 EDHEC Business school - 2020 - Python for finance
 
 
