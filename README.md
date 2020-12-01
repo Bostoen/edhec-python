@@ -6,7 +6,7 @@ EDHEC Business school - 2020 - Python for finance
 
 In this part, we will have a look first on the object, then on the functions. Please have a look on the example notebook to see those class in a simple use case.
 
-### Objects
+### Financial objects
 
 The object are stored in data_structures.py.
 
@@ -19,7 +19,7 @@ This abstract class will define the architecture of the derivatives. Each deriva
 ```python
 Class Derivatives(underlying: Stock, strike: float, dte: int) 
 @abstractmethod
-def payoff(self, path) -> float:
+def payoff(path) -> float:
 ```
 
 This object represents a call.
@@ -27,12 +27,10 @@ This object represents a call.
 Class Call(underlying: Stock, strike: float, dte: int)
 ```
 
-
 This object represents a put.
 ```python
 Class Put(underlying: Stock, strike: float, dte: int)
 ```
-
 
 This object represents a binary call. The notional is set to 1 by default.
 ```python
@@ -62,8 +60,39 @@ Class AsianPut(underlying: Stock, strike: float, dte: int)
 ```
 
 
+This object represents a barrier up out.
+```python
+Class BarrierUpOut(option: Derivative, barrier: float)
+```
 
+This object represents a barrier down out.
+```python
+Class BarrierDownOut(option: Derivative, barrier: float)
+```
 
+This object represents a barrier up in.
+```python
+Class BarrierUpIn(option: Derivative, barrier: float)
+```
+
+This object represents a barrier down in.
+```python
+Class BarrierDownIn(option: Derivative, barrier: float)
+```
+
+### Strategy object
+
+This object represents the strategy. 
+```python
+Class Strategy(underlying: Stock)
+```
+It has two methods that create and remove a leg for a given strategy.
+```python
+def add_leg(derivative, is_short=False)
+def rem_leg(derivative, is_short=False)
+```
+
+### Functions
 
 
 
