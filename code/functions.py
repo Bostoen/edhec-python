@@ -2,9 +2,8 @@ from code.data_structures import *
 import numpy as np
 import yfinance as yf
 import datetime
-
 """
-This file contains the functions that do the necessary work.
+This file contains the functions that do the necessary work for monte carlo pricing.
 """
 BASE_ITERATIONS = 10**4
 
