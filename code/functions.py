@@ -18,7 +18,7 @@ def get_price_vol(ticker, start = '2005-1-1', end = datetime.date.today().strfti
     tickerData = yf.Ticker(ticker)
     tickerDf = tickerData.history(period='1d', start=start, end=end)
     last_price = tickerDf['Close'][-1] 
-    tickerDf['returns'] = (np.log(tickerDf['Close']/tickerDf['Close'].shift(-1)))
+    tickerDf['returns'] = np.log(tickerDf['Close']/tickerDf['Close'].shift(-1))
     daily_vol = np.std(tickerDf['returns'])
     ann_vol = daily_vol * np.sqrt(252)
     return round(last_price,2), round(ann_vol,2)
