@@ -1,5 +1,5 @@
-# GEOPLC
-Détection QPV
+# An option based strategy pricer
+EDHEC Business school - 2020 - Python for finance
 
 La réponse se présentera sous la forme suivante 
 
