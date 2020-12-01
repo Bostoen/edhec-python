@@ -107,18 +107,22 @@ if __name__ == "__main__":
                     print(STR.ERR_UNDERLYING)
                     continue
                 if type_deriv in ("up_out", "up_in", "down_out", "down_in"):
-                    new_deriv = None
-                    if type_deriv == "up_out":
-                        new_deriv = BarrierUpOut(derivatives[deriv_id], barrier, name=name)
-                    if type_deriv == "up_in":
-                        new_deriv = BarrierUpIn(derivatives[deriv_id], barrier, name=name)
-                    if type_deriv == "down_out":
-                        new_deriv = BarrierDownOut(derivatives[deriv_id], barrier, name=name)
-                    if type_deriv == "down_in":
-                        new_deriv = BarrierDownIn(derivatives[deriv_id], barrier, name=name)
-                    derivatives[name] = new_deriv
-                    print(STR.DERIV_SUCCESS)
-                    continue
+                    try:
+                        new_deriv = None
+                        if type_deriv == "up_out":
+                            new_deriv = BarrierUpOut(derivatives[deriv_id], barrier, name=name)
+                        if type_deriv == "up_in":
+                            new_deriv = BarrierUpIn(derivatives[deriv_id], barrier, name=name)
+                        if type_deriv == "down_out":
+                            new_deriv = BarrierDownOut(derivatives[deriv_id], barrier, name=name)
+                        if type_deriv == "down_in":
+                            new_deriv = BarrierDownIn(derivatives[deriv_id], barrier, name=name)
+                        derivatives[name] = new_deriv
+                        print(STR.DERIV_SUCCESS)
+                        continue
+                    except AssertionError:
+                        print(STR.ERR_IMPOSSIBLE_BARRIER)
+                        continue
             if len(args) == 5:
                 # vanilla, asian, binary
                 name, type_deriv, underlying_id, strike, dte = args[0], args[1], args[2], float(args[3]), int(args[4])

@@ -95,7 +95,7 @@ class AsianCall(Derivative):
 
     def payoff(self, path):
         average_price = np.mean(path[:self.dte - 1])
-        return max(.0, (average_price-self.strike)*100)
+        return max(.0, (average_price-self.strike))
 
 
 class AsianPut(Derivative):
@@ -109,7 +109,7 @@ class AsianPut(Derivative):
 
     def payoff(self, path):
         average_price = np.mean(path[:self.dte - 1])
-        return max(.0, (self.strike-average_price)*100)
+        return max(.0, (self.strike-average_price))
 
 
 class BarrierUpOut(Derivative):

@@ -5,7 +5,7 @@ This file simply contains the strings for the main program.
 # Communication
 VERSION_NUMBER = "v1.2"
 WELCOME = "\nCopyright 2020 Hector Bostoen. Intended for academic purposes.\n\n" \
-          "Welcome to Python Derivative Pricer " + VERSION_NUMBER + ". Type \"help\" for a list of commands."
+          "Welcome to the Python Interactive Monte-carlo Pricer (PIMP " + VERSION_NUMBER + "). Type \"help\" for a list of commands."
 
 # Commands
 HELP_MESSAGE = "Commands and syntax. Type \"help <command>\" for specific usage and parameters.\n" \
@@ -125,3 +125,4 @@ ERR_UNKNOWN_CMD = "Unknown command. Type \"help\" for a list of commands."
 ERR_ADD = "Strategy and derivative have different underlying stocks."
 ERR_REM = "Strategy does not contain this derivative. Make sure to specify the [short] flag if the\n" \
           "leg is short."
+ERR_IMPOSSIBLE_BARRIER = "This barrier is impossible on the underlying, as its condition is already fulfilled."
