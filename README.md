@@ -87,6 +87,7 @@ Finally, we support four types of barrier options:
 * Up-and-in: The spot price starts below the barrier. It must go above for the option to become active.  
 * Down-and-in: The spot price starts above the barrier. It must go below for the option to become active.  
 
+These are evidently also path-dependant, as their existance depends on whether or not the price has crossed the barrier line.
 Barriers can be placed on any other derivative, including exotic options, or even other barrier options. This way, multiple barriers could be added to a single derivative.
 ```python
 Class BarrierUpOut(option: Derivative, barrier: float)
