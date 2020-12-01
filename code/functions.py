@@ -1,9 +1,27 @@
 from code.data_structures import *
 import numpy as np
+import yfinance as yf
+import pandas as pd
+import datetime 
+
 """
 This file contains the functions that do the necessary work.
 """
 BASE_ITERATIONS = 10**4
+
+
+
+#date format yyyy-mm-dd
+#if no input default is 2005 01 01 and yesterday
+def get_price_vol(ticker, start = '2005-1-1', end = datetime.date.today().strftime("%Y-%m-%d")):
+    
+    tickerData = yf.Ticker(ticker)
+    tickerDf = tickerData.history(period='1d', start=start, end=end)
+    last_price = tickerDf['Close'][-1] 
+    tickerDf['returns'] = (np.log(tickerDf['Close']/tickerDf['Close'].shift(-1)))
+    daily_vol = np.std(tickerDf['returns'])
+    ann_vol = daily_vol * np.sqrt(252)
+    return round(last_price,2), round(ann_vol,2)
 
 
 def make_path(stock: Stock, dte: int, riskfree: float):
@@ -55,55 +73,5 @@ def monte_carlo_strategy(strategy: Strategy, riskfree: float, n=BASE_ITERATIONS)
 
 ##############################################################################
 
-# variables = {"r": 0.05, "n": 50000}
-#
-#
-# # instrument: Instrument
-# def monte_carlo_instrument(instrument_vol, S0: float, month_to_maturity) -> float:
-#     """
-#     Approximate the price of an instrument via Monte Carlo
-#     """
-#     M = 12  # interval for discretization
-#     T = month_to_maturity
-#
-#     def mcs(M, n):
-#         dt = T / M
-#         S = np.zeros((M + 1, n))
-#         S[0] = S0
-#         rn = np.random.standard_normal(S.shape)
-#         for t in range(1, M + 1):
-#             S[t] = S[t - 1] * np.exp(
-#                 (variables['r'] - instrument_vol ** 2 / 2) * dt + instrument_vol * np.sqrt(dt) * rn[t])
-#         return S
-#
-#     S = mcs(M, variables['n'])
-#     print(S[-1].mean())
-#     print(S0 * np.exp(variables['r'] * T))
-#     C0 = np.exp(-variables['r'] * T) * np.maximum(S0 - S[-1], 0).mean()
-#
-#     return C0
-#
-#
-# def _monte_carlo_strategy(strategy: Strategy) -> float:
-#     """
-#     Approximate the price of a strategy via Monte Carlo
-#     """
-#     total = np.array([monte_carlo_instrument(xxxxxx, xxx, xxxx, xxx) * leg.amount for leg in strategy]).sum()
-#
-#     # attention au short qui fera un résultat négatif sur le payoff !
-#
-#     # idée en pseudocode:
-#     #
-#     # total = 0
-#     # for leg in strategy:
-#     #    total += leg.instrument.payoff() * leg.amount
-#     #
-#     # Ainsi donc si tu es short un call, long deux puts, short un autre call, tu auras:
-#     #    call_1.payoff() * -1
-#     #    + put_1.payoff() * 2
-#     #    + call_2.payoff() * -1
-#     return total
-#
-#
-# test = monte_carlo_instrument(0.2, 100, 12)
-# print(test)
+test = get_price_vol('AAPL')
+print(test)
