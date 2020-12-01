@@ -1,4 +1,4 @@
-from code.data_structures import *
+from data_structures import *
 import numpy as np
 import yfinance as yf
 import pandas as pd
@@ -9,11 +9,7 @@ This file contains the functions that do the necessary work.
 """
 BASE_ITERATIONS = 10**4
 
-
-
-#date format yyyy-mm-dd
-#if no input default is 2005 01 01 and yesterday
-def get_price_vol(ticker, start = '2005-1-1', end = datetime.date.today().strftime("%Y-%m-%d")):
+def get_price_and_vol(ticker: str, start = '2005-1-1', end = datetime.date.today().strftime("%Y-%m-%d")):
     
     tickerData = yf.Ticker(ticker)
     tickerDf = tickerData.history(period='1d', start=start, end=end)
@@ -72,6 +68,3 @@ def monte_carlo_strategy(strategy: Strategy, riskfree: float, n=BASE_ITERATIONS)
     return sum(PV)
 
 ##############################################################################
-
-test = get_price_vol('AAPL')
-print(test)
