@@ -98,3 +98,18 @@ Those dates must be strings and follow the format `yyyy-mm-dd`.
 def get_price_and_vol(ticker: str, start = '2005-1-1', end = datetime.date.today().strftime("%Y-%m-%d")):
 ```
 
+This function returns the present value of a given derivative. `n=10000` by default but it can be modified by the user on the menu.
+```python
+def monte_carlo(derivative: Derivative, riskfree: float, n=BASE_ITERATIONS):
+```
+
+The following function returns the present value of a strategy. As on the prior function, `n=10000` by default but it can be modified by the user.
+```python
+def monte_carlo_strategy(strategy: Strategy, riskfree: float, n=BASE_ITERATIONS):
+```
+
+The following function computes the Monte Carlo path for a given underlying. It is used by the previous functions to compute the present value.
+```python
+def make_path(stock: Stock, dte: int, riskfree: float):
+```
+
