@@ -1,4 +1,4 @@
-# An option based strategy pricer
+# An option based pricer
 EDHEC Business school - 2020 - Python for finance
 
 La réponse se présentera sous la forme suivante 
