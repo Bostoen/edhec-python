@@ -108,7 +108,7 @@ The following function returns the present value of a strategy. As on the prior 
 def monte_carlo_strategy(strategy: Strategy, riskfree: float, n=BASE_ITERATIONS):
 ```
 
-The following function computes the Monte Carlo path for a given underlying. It is used by the previous functions to compute the present value.
+The next function computes the Monte Carlo path for a given underlying. It is used by the previous functions to compute the present value.
 ```python
 def make_path(stock: Stock, dte: int, riskfree: float):
 ```
