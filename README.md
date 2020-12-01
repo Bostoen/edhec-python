@@ -92,8 +92,8 @@ def rem_leg(derivative, is_short=False)
 
 ### Functions
 
-This function returns the price and the volatility for a given ticker using yahoo's daily database. By default, `start = '2005-1-1'` and `end = '2020-12-1'` as it stands for yesterday. 
-Those dates must be strings and follow the format `yyyy-mm-dd`.
+This function returns the price and the volatility for a given ticker using yahoo's daily database. By default, `start = '2005-1-1'` and
+`end = '2020-12-1'` as it stands for yesterday. Those dates must be strings and follow the format `yyyy-mm-dd`.
 ```python
 def get_price_and_vol(ticker: str, start = '2005-1-1', end = datetime.date.today().strftime("%Y-%m-%d")):
 ```
