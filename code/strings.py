@@ -3,8 +3,9 @@ This file simply contains the strings for the main program.
 """
 
 # Communication
-VERSION_NUMBER = "v0.1"
-WELCOME = "Welcome to _NAME_ " + VERSION_NUMBER + ". Type \"help\" for a list of commands."
+VERSION_NUMBER = "v1.2"
+WELCOME = "Copyright 2020 Hector Bostoen. Intended for academic purposes.\n\n" \
+          "Welcome to Python Derivative Pricer " + VERSION_NUMBER + ". Type \"help\" for a list of commands."
 
 # Commands
 HELP_MESSAGE = "Commands and syntax. Type \"help <command>\" for specific usage and parameters.\n" \
